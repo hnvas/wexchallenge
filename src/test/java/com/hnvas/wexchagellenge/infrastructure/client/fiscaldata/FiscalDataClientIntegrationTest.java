@@ -1,7 +1,7 @@
 package com.hnvas.wexchagellenge.infrastructure.client.fiscaldata;
 
 import com.hnvas.wexchagellenge.configuration.TestcontainersConfiguration;
-import com.hnvas.wexchagellenge.infrastructure.client.fiscaldata.model.CurrencyRecord;
+import com.hnvas.wexchagellenge.infrastructure.client.fiscaldata.model.ExchangeRateRecord;
 import com.hnvas.wexchagellenge.infrastructure.client.fiscaldata.model.ExchangeRatesRequest;
 import com.hnvas.wexchagellenge.infrastructure.client.fiscaldata.model.ExchangeRatesResponse;
 import lombok.SneakyThrows;
@@ -80,15 +80,15 @@ class FiscalDataClientIntegrationTest {
         .hasSize(3)
         .containsAll(
             List.of(
-                currencyRecord(1.355, LocalDate.parse("2024-03-31")),
-                currencyRecord(1.37, LocalDate.parse("2024-06-30")),
-                currencyRecord(1.352, LocalDate.parse("2024-09-30"))
+                exchangeRateRecord(1.355, LocalDate.parse("2024-03-31")),
+                exchangeRateRecord(1.37, LocalDate.parse("2024-06-30")),
+                exchangeRateRecord(1.352, LocalDate.parse("2024-09-30"))
             )
         );
   }
 
-  private static @NotNull CurrencyRecord currencyRecord(double val, LocalDate recordDate) {
-    return new CurrencyRecord(COUNTRY, CURRENCY, BigDecimal.valueOf(val), recordDate);
+  private static @NotNull ExchangeRateRecord exchangeRateRecord(double val, LocalDate recordDate) {
+    return new ExchangeRateRecord(COUNTRY, CURRENCY, BigDecimal.valueOf(val), recordDate);
   }
 
   @SneakyThrows

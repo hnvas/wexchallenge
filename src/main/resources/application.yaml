@@ -2,6 +2,10 @@ server:
   port: 8080
   shutdown: graceful
 
+logging:
+  pattern:
+    console: "%green([%d{yyyy-MM-dd HH:mm:ss.SSS}]) - %magenta([%t]) - %highlight([%level]) - %cyan([%class->%method:%line]) - %yellow([traceId=%X{traceId}, spanId=%X{spanId}]): %msg%n"
+
 db:
   host: ${DATABASE_HOST}
   port: ${DATABASE_PORT}

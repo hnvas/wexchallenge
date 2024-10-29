@@ -6,7 +6,7 @@ import java.util.List;
 
 @Builder
 public record ExchangeRatesResponse(
-    List<CurrencyRecord> data,
+    List<ExchangeRateRecord> data,
     MetaData meta,
     Links links
 ) {
