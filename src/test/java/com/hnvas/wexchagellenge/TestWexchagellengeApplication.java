@@ -1,5 +1,6 @@
 package com.hnvas.wexchagellenge;
 
+import com.hnvas.wexchagellenge.configuration.TestcontainersConfiguration;
 import org.springframework.boot.SpringApplication;
 
 public class TestWexchagellengeApplication {

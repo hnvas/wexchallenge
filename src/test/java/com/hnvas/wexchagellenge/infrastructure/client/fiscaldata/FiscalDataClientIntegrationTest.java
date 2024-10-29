@@ -1,6 +1,6 @@
 package com.hnvas.wexchagellenge.infrastructure.client.fiscaldata;
 
-import com.hnvas.wexchagellenge.TestcontainersConfiguration;
+import com.hnvas.wexchagellenge.configuration.TestcontainersConfiguration;
 import com.hnvas.wexchagellenge.infrastructure.client.fiscaldata.model.CurrencyRecord;
 import com.hnvas.wexchagellenge.infrastructure.client.fiscaldata.model.ExchangeRatesRequest;
 import com.hnvas.wexchagellenge.infrastructure.client.fiscaldata.model.ExchangeRatesResponse;
