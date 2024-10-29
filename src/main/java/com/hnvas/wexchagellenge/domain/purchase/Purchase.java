@@ -1,8 +1,11 @@
 package com.hnvas.wexchagellenge.domain.purchase;
 
+import lombok.EqualsAndHashCode;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@EqualsAndHashCode
 public class Purchase {
 
   private Long id;
