@@ -1,0 +1,30 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env.local
+    image: challenge_app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - challenge_network
+
+  postgres:
+    image: 'postgres:latest'
+    container_name: wexchange_postgres
+    environment:
+      POSTGRES_DB: challenge_db
+      POSTGRES_PASSWORD: secret
+    ports:
+      - "5432:5432"
+    networks:
+      - challenge_network
+
+networks:
+  challenge_network:
+    driver: bridge
+    name: challenge_network

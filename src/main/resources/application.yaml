@@ -1,0 +1,32 @@
+server:
+  port: 8080
+  shutdown: graceful
+
+db:
+  host: ${DATABASE_HOST}
+  port: ${DATABASE_PORT}
+  username: ${DATABASE_USERNAME}
+  password: ${DATABASE_PASSWORD}
+
+spring:
+  application:
+    name: wexchallenge
+  datasource:
+    url: jdbc:postgresql://${db.host}:${db.port}/challenge_db?useSSL=true&serverTimezone=UTC&characterEncoding=UTF-8
+    username: ${db.username}
+    password: ${db.password}
+    hikari:
+      connection-timeout: 3000
+      connection-test-query: SELECT 1
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      minimum-idle: 10
+      maximum-pool-size: 20
+  flyway:
+    locations: classpath:db/migration
+
+fiscal-data:
+  api:
+    url: https://api.fiscaldata.treasury.gov/services/api/fiscal_service
+    connect-timeout: 100ms
+    read-timeout: 500ms
