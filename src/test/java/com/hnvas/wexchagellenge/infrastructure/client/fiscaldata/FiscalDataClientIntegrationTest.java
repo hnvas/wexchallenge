@@ -31,7 +31,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.containers.MockServerContainer;
 
 import com.hnvas.wexchagellenge.configuration.TestcontainersConfiguration;
-import com.hnvas.wexchagellenge.infrastructure.client.fiscaldata.model.ExchangeRateRecord;
+import com.hnvas.wexchagellenge.infrastructure.persistence.exchange.ExchangeRateRecord;
 import com.hnvas.wexchagellenge.infrastructure.client.fiscaldata.model.ExchangeRatesResponse;
 
 import lombok.SneakyThrows;
@@ -42,8 +42,6 @@ import lombok.SneakyThrows;
 @ActiveProfiles("test")
 class FiscalDataClientIntegrationTest {
 
-  private static final String COUNTRY = "Canada";
-  private static final String CURRENCY = "Dollar";
   private static final String EXCHANGE_RATES_BY_COUNTRY_ENDPOINT =
       "/v1/accounting/od/rates_of_exchange?fields=country,currency,exchange_rate,record_date&filter=country:eq:Canada,record_date:gte:2024-01-01,record_date:lte:2024-12-31";
   private static final String EXCHANGE_RATES_BY_CURRENCY_ENDPOINT =

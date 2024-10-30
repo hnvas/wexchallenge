@@ -1,18 +1,20 @@
-package com.hnvas.wexchagellenge.infrastructure.persistence.purchase;
+package com.hnvas.wexchagellenge.infrastructure.gateway;
 
 import java.util.Optional;
 
+import com.hnvas.wexchagellenge.infrastructure.persistence.purchase.PurchaseRecord;
+import com.hnvas.wexchagellenge.infrastructure.persistence.purchase.PurchaseRecordRepository;
 import org.springframework.stereotype.Component;
 
 import com.hnvas.wexchagellenge.domain.purchase.Purchase;
 import com.hnvas.wexchagellenge.domain.purchase.PurchaseGateway;
 
 @Component
-public class PurchaseGatewayJpaAdapter implements PurchaseGateway {
+public class PurchaseGatewayImpl implements PurchaseGateway {
 
-  private final PurchaseRepository purchaseRepository;
+  private final PurchaseRecordRepository purchaseRepository;
 
-  public PurchaseGatewayJpaAdapter(PurchaseRepository purchaseRepository) {
+  public PurchaseGatewayImpl(PurchaseRecordRepository purchaseRepository) {
     this.purchaseRepository = purchaseRepository;
   }
 
