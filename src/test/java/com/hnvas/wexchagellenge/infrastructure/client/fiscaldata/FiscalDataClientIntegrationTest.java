@@ -2,11 +2,11 @@ package com.hnvas.wexchagellenge.infrastructure.client.fiscaldata;
 
 import com.hnvas.wexchagellenge.configuration.TestcontainersConfiguration;
 import com.hnvas.wexchagellenge.infrastructure.client.fiscaldata.model.ExchangeRateRecord;
-import com.hnvas.wexchagellenge.infrastructure.client.fiscaldata.model.ExchangeRatesRequest;
 import com.hnvas.wexchagellenge.infrastructure.client.fiscaldata.model.ExchangeRatesResponse;
 import lombok.SneakyThrows;
 import org.assertj.core.api.InstanceOfAssertFactories;
 import org.jetbrains.annotations.NotNull;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -42,22 +42,30 @@ class FiscalDataClientIntegrationTest {
 
   private static final String COUNTRY = "Canada";
   private static final String CURRENCY = "Dollar";
-  private static final String EXCHANGE_RATES_ENDPOINT =
-      "/v1/accounting/od/rates_of_exchange?fields=country,currency,exchange_rate,record_date&filter=country:eq:Canada,record_date:gte:2024-01-01";
-
-  @Value("classpath:__files/fiscaldata_api/GET_exchange_rates_success.json")
-  private Resource exchangeRatesSuccessResponse;
-
-  @Autowired
-  private FiscalDataClient fiscalDataClient;
-
+  private static final String EXCHANGE_RATES_BY_COUNTRY_ENDPOINT =
+      "/v1/accounting/od/rates_of_exchange?fields=country,currency,exchange_rate,record_date&filter=country:eq:Canada,record_date:gte:2024-01-01,record_date:lte:2024-12-31";
+  private static final String EXCHANGE_RATES_BY_CURRENCY_ENDPOINT =
+      "/v1/accounting/od/rates_of_exchange?fields=country,currency,exchange_rate,record_date&filter=currency:eq:Yen,record_date:gte:2024-01-01,record_date:lte:2024-12-31";
+  private static final String EXCHANGE_RATES_BY_COUNTRY_AND_CURRENCY_ENDPOINT =
+      "/v1/accounting/od/rates_of_exchange?fields=country,currency,exchange_rate,record_date&filter=country_currency_desc:eq:Chile-Peso,record_date:gte:2024-01-01,record_date:lte:2024-12-31";
   @Autowired
   protected TestRestTemplate testRestTemplate;
-
+  @Value("classpath:__files/fiscaldata_api/GET_exchange_rates_by_country_success.json")
+  private Resource exchangeRatesByCountrySuccessResponse;
+  @Value("classpath:__files/fiscaldata_api/GET_exchange_rates_by_currency_success.json")
+  private Resource exchangeRatesByCurrencySuccessResponse;
+  @Value("classpath:__files/fiscaldata_api/GET_exchange_rates_by_country_and_currency_success.json")
+  private Resource exchangeRatesByCountryAndCurrencySuccessResponse;
+  @Autowired
+  private FiscalDataClient fiscalDataClient;
   @Autowired
   private MockServerContainer mockServer;
 
   private MockServerClient mockServerClient;
+
+  private static @NotNull ExchangeRateRecord exchangeRateRecord(String country, String currency, double val, LocalDate recordDate) {
+    return new ExchangeRateRecord(country, currency, BigDecimal.valueOf(val), recordDate);
+  }
 
   @BeforeEach
   void setUp() {
@@ -67,12 +75,17 @@ class FiscalDataClientIntegrationTest {
     );
   }
 
-  @Test
-  void testGetExchangeRates() {
-    givenApiResponseOk(
-        URI.create(EXCHANGE_RATES_ENDPOINT), exchangeRatesSuccessResponse, HttpMethod.GET);
+  @AfterEach
+  void tearDown() {
+    mockServerClient.reset();
+  }
 
-    var response = fiscalDataClient.getExchangeRates(new ExchangeRatesRequest("Canada", null,  LocalDate.parse("2024-01-01")));
+  @Test
+  void testGetExchangeRatesByCountry() {
+    givenApiResponseOk(
+        URI.create(EXCHANGE_RATES_BY_COUNTRY_ENDPOINT), exchangeRatesByCountrySuccessResponse, HttpMethod.GET);
+
+    var response = fiscalDataClient.getExchangeRatesByCountry("Canada", LocalDate.parse("2024-01-01"), LocalDate.parse("2024-12-31"));
 
     assertThat(response).isNotNull()
         .isInstanceOf(ExchangeRatesResponse.class)
@@ -80,15 +93,50 @@ class FiscalDataClientIntegrationTest {
         .hasSize(3)
         .containsAll(
             List.of(
-                exchangeRateRecord(1.355, LocalDate.parse("2024-03-31")),
-                exchangeRateRecord(1.37, LocalDate.parse("2024-06-30")),
-                exchangeRateRecord(1.352, LocalDate.parse("2024-09-30"))
+                exchangeRateRecord("Canada", "Dollar", 1.355, LocalDate.parse("2024-03-31")),
+                exchangeRateRecord("Canada", "Dollar", 1.37, LocalDate.parse("2024-06-30")),
+                exchangeRateRecord("Canada", "Dollar", 1.352, LocalDate.parse("2024-09-30"))
             )
         );
   }
 
-  private static @NotNull ExchangeRateRecord exchangeRateRecord(double val, LocalDate recordDate) {
-    return new ExchangeRateRecord(COUNTRY, CURRENCY, BigDecimal.valueOf(val), recordDate);
+  @Test
+  void testGetExchangeRatesByCurrency() {
+    givenApiResponseOk(
+        URI.create(EXCHANGE_RATES_BY_CURRENCY_ENDPOINT), exchangeRatesByCurrencySuccessResponse, HttpMethod.GET);
+
+    var response = fiscalDataClient.getExchangeRatesByCurrency("Yen", LocalDate.parse("2024-01-01"), LocalDate.parse("2024-12-31"));
+
+    assertThat(response).isNotNull()
+        .isInstanceOf(ExchangeRatesResponse.class)
+        .extracting("data", as(InstanceOfAssertFactories.LIST))
+        .hasSize(3)
+        .containsAll(
+            List.of(
+                exchangeRateRecord("Japan", "Yen", 151.34, LocalDate.parse("2024-03-31")),
+                exchangeRateRecord("Japan", "Yen", 160.63, LocalDate.parse("2024-06-30")),
+                exchangeRateRecord("Japan", "Yen", 140.04, LocalDate.parse("2024-09-30"))
+            )
+        );
+  }
+
+  @Test
+  void testGetExchangeRatesByCountryAndCurrency() {
+    givenApiResponseOk(
+        URI.create(EXCHANGE_RATES_BY_COUNTRY_AND_CURRENCY_ENDPOINT), exchangeRatesByCountryAndCurrencySuccessResponse, HttpMethod.GET);
+
+    var response = fiscalDataClient.getExchangeRatesByCountryAndCurrency("Chile", "Peso", LocalDate.parse("2024-01-01"), LocalDate.parse("2024-12-31"));
+
+    assertThat(response).isNotNull()
+        .isInstanceOf(ExchangeRatesResponse.class)
+        .extracting("data", as(InstanceOfAssertFactories.LIST))
+        .hasSize(2)
+        .containsAll(
+            List.of(
+                exchangeRateRecord("Chile", "Peso", 978.97, LocalDate.parse("2024-03-31")),
+                exchangeRateRecord("Chile", "Peso", 954.5, LocalDate.parse("2024-06-30"))
+            )
+        );
   }
 
   @SneakyThrows
@@ -99,10 +147,9 @@ class FiscalDataClientIntegrationTest {
             .withMethod(method.name())
             .withPath(endpoint.getPath())
     ).respond(
-      response().withStatusCode(200)
-        .withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
-        .withBody(json(successResponse.getContentAsString(StandardCharsets.UTF_8)))
+        response().withStatusCode(200)
+            .withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
+            .withBody(json(successResponse.getContentAsString(StandardCharsets.UTF_8)))
     );
-
   }
 }

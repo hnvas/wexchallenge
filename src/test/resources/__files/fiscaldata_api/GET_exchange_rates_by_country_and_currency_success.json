@@ -1,0 +1,46 @@
+{
+  "data": [
+    {
+      "country": "Chile",
+      "currency": "Peso",
+      "exchange_rate": "978.97",
+      "record_date": "2024-03-31"
+    },
+    {
+      "country": "Chile",
+      "currency": "Peso",
+      "exchange_rate": "954.5",
+      "record_date": "2024-06-30"
+    }
+  ],
+  "meta": {
+    "count": 2,
+    "labels": {
+      "country": "Country",
+      "currency": "Currency",
+      "exchange_rate": "Exchange Rate",
+      "record_date": "Record Date"
+    },
+    "dataTypes": {
+      "country": "STRING",
+      "currency": "STRING",
+      "exchange_rate": "NUMBER",
+      "record_date": "DATE"
+    },
+    "dataFormats": {
+      "country": "String",
+      "currency": "String",
+      "exchange_rate": "10.2",
+      "record_date": "YYYY-MM-DD"
+    },
+    "total-count": 2,
+    "total-pages": 1
+  },
+  "links": {
+    "self": "&page%5Bnumber%5D=1&page%5Bsize%5D=100",
+    "first": "&page%5Bnumber%5D=1&page%5Bsize%5D=100",
+    "prev": null,
+    "next": null,
+    "last": "&page%5Bnumber%5D=1&page%5Bsize%5D=100"
+  }
+}

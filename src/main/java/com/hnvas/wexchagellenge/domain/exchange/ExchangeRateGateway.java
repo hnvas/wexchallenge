@@ -9,5 +9,5 @@ public interface ExchangeRateGateway {
 
   List<ExchangeRate> findExchangeRatesByCurrency(String currency, LocalDate recordDateFrom, LocalDate recordDateTo);
 
-  List<ExchangeRate> findExchangeRatesByCountryAndCurrency(String country, LocalDate recordDateFrom, LocalDate recordDateTo);
+  List<ExchangeRate> findExchangeRatesByCountryAndCurrency(String country, String currency, LocalDate recordDateFrom, LocalDate recordDateTo);
 }
