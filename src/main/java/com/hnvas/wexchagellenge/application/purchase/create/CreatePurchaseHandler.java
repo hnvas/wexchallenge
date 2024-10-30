@@ -10,7 +10,7 @@ import jakarta.validation.ConstraintViolation;
 
 public class CreatePurchaseHandler {
 
-  private static final String INVALID_PURCHASE_MESSAGE = "Invalid purchase data";
+  private static final String INVALID_PURCHASE_MESSAGE = "Invalid purchase information";
 
   private final PurchaseGateway purchaseGateway;
   private final ValidationHandler<CreatePurchaseCommand> validationHandler;
