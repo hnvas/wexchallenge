@@ -1,4 +1,4 @@
-package com.hnvas.wexchagellenge.domain.exchange;
+package com.hnvas.wexchagellenge.domain.purchase.exchange;
 
 import java.util.Comparator;
 import java.util.List;

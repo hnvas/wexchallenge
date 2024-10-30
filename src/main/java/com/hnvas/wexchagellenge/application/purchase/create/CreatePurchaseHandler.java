@@ -2,7 +2,7 @@ package com.hnvas.wexchagellenge.application.purchase.create;
 
 import java.util.Set;
 
-import com.hnvas.wexchagellenge.application.validation.ValidationException;
+import com.hnvas.wexchagellenge.application.exception.ValidationException;
 import com.hnvas.wexchagellenge.application.validation.ValidationHandler;
 import com.hnvas.wexchagellenge.domain.purchase.PurchaseGateway;
 

@@ -1,4 +1,4 @@
-package com.hnvas.wexchagellenge.domain.exchange;
+package com.hnvas.wexchagellenge.domain.purchase.exchange;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -7,6 +7,9 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
+import com.hnvas.wexchagellenge.domain.purchase.exchange.ExchangeConverter;
+import com.hnvas.wexchagellenge.domain.purchase.exchange.ExchangeRate;
+import com.hnvas.wexchagellenge.domain.purchase.exchange.LocalizedAmount;
 import org.junit.jupiter.api.Test;
 
 import com.hnvas.wexchagellenge.domain.purchase.Purchase;

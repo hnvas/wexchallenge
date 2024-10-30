@@ -3,8 +3,6 @@ package com.hnvas.wexchagellenge.application.purchase.create;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import org.springframework.validation.annotation.Validated;
-
 import com.hnvas.wexchagellenge.domain.purchase.Purchase;
 
 import jakarta.validation.constraints.DecimalMin;
@@ -16,7 +14,6 @@ import jakarta.validation.constraints.Size;
 import lombok.Builder;
 
 @Builder
-@Validated
 public record CreatePurchaseCommand(
     @NotNull(message = "Description is required")
         @NotEmpty(message = "Description cannot be empty")

@@ -7,8 +7,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.hnvas.wexchagellenge.domain.exchange.ExchangeRate;
-import com.hnvas.wexchagellenge.domain.exchange.ExchangeRateGateway;
+import com.hnvas.wexchagellenge.domain.purchase.exchange.ExchangeRate;
+import com.hnvas.wexchagellenge.domain.purchase.exchange.ExchangeRateGateway;
 import com.hnvas.wexchagellenge.infrastructure.client.fiscaldata.FiscalDataClient;
 import com.hnvas.wexchagellenge.infrastructure.persistence.exchange.ExchangeRateRecord;
 import com.hnvas.wexchagellenge.infrastructure.persistence.exchange.ExchangeRateRecordRepository;

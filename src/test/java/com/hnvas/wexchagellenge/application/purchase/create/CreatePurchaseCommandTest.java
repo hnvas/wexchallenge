@@ -4,9 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import com.hnvas.wexchagellenge.application.validation.ValidationHandler;
 import com.hnvas.wexchagellenge.domain.purchase.Purchase;
@@ -35,150 +39,6 @@ class CreatePurchaseCommandTest {
   }
 
   @Test
-  void testInvalidDescription() {
-    CreatePurchaseCommand command =
-        CreatePurchaseCommand.builder()
-            .description("")
-            .purchaseDate(LocalDate.now())
-            .amount(new BigDecimal("10.00"))
-            .build();
-
-    validator.isValid(command);
-
-    var violations = validator.violations();
-    assertEquals(1, violations.size());
-    assertEquals("Description cannot be empty", violations.iterator().next().getMessage());
-  }
-
-  @Test
-  void testNullDescription() {
-    CreatePurchaseCommand command =
-        CreatePurchaseCommand.builder()
-            .description(null)
-            .purchaseDate(LocalDate.now())
-            .amount(new BigDecimal("10.00"))
-            .build();
-
-    validator.isValid(command);
-
-    var violations = validator.violations();
-    assertEquals(2, violations.size());
-    assertEquals("Description is required", violations.iterator().next().getMessage());
-  }
-
-  @Test
-  void testDescriptionExceedsMaxLength() {
-    CreatePurchaseCommand command =
-        CreatePurchaseCommand.builder()
-            .description("A".repeat(51))
-            .purchaseDate(LocalDate.now())
-            .amount(new BigDecimal("10.00"))
-            .build();
-
-    validator.isValid(command);
-
-    var violations = validator.violations();
-    assertEquals(1, violations.size());
-    assertEquals("Description must be between 20 and 50 characters", violations.iterator().next().getMessage());
-  }
-
-  @Test
-  void testInvalidPurchaseDate() {
-    CreatePurchaseCommand command =
-        CreatePurchaseCommand.builder()
-            .description("Valid Description")
-            .purchaseDate(LocalDate.now().plusDays(1))
-            .amount(new BigDecimal("10.00"))
-            .build();
-
-    validator.isValid(command);
-
-    var violations = validator.violations();
-    assertEquals(1, violations.size());
-    assertEquals("Purchase date must be in the past or present", violations.iterator().next().getMessage());
-  }
-
-  @Test
-  void testNullPurchaseDate() {
-    CreatePurchaseCommand command =
-        CreatePurchaseCommand.builder()
-            .description("Valid Description")
-            .purchaseDate(null)
-            .amount(new BigDecimal("10.00"))
-            .build();
-
-    validator.isValid(command);
-
-    var violations = validator.violations();
-    assertEquals(1, violations.size());
-    assertEquals("Purchase date is required", violations.iterator().next().getMessage());
-  }
-
-  @Test
-  void testInvalidAmount() {
-    CreatePurchaseCommand command =
-        CreatePurchaseCommand.builder()
-            .description("Valid Description")
-            .purchaseDate(LocalDate.now())
-            .amount(new BigDecimal("0.00"))
-            .build();
-
-    validator.isValid(command);
-
-    var violations = validator.violations();
-    assertEquals(1, violations.size());
-    assertEquals("Amount must be greater than 0", violations.iterator().next().getMessage());
-  }
-
-  @Test
-  void testNullAmount() {
-    CreatePurchaseCommand command =
-        CreatePurchaseCommand.builder()
-            .description("Valid Description")
-            .purchaseDate(LocalDate.now())
-            .amount(null)
-            .build();
-
-    validator.isValid(command);
-
-    var violations = validator.violations();
-    assertEquals(1, violations.size());
-    assertEquals("Amount is required", violations.iterator().next().getMessage());
-  }
-
-  @Test
-  void testAmountExceedsIntegerDigits() {
-    CreatePurchaseCommand command =
-        CreatePurchaseCommand.builder()
-            .description("Valid Description")
-            .purchaseDate(LocalDate.now())
-            .amount(new BigDecimal("123456789012345.00"))
-            .build();
-
-    validator.isValid(command);
-
-    var violations = validator.violations();
-    assertEquals(1, violations.size());
-    assertEquals("Amount must have up to 14 digits and 2 decimals", violations.iterator().next().getMessage());
-  }
-
-  @Test
-  void testAmountExceedsDecimalPlaces() {
-    CreatePurchaseCommand command =
-        CreatePurchaseCommand.builder()
-            .description("Valid Description")
-            .purchaseDate(LocalDate.now())
-            .amount(new BigDecimal("10.001"))
-            .build();
-
-    validator.isValid(command);
-
-    var violations = validator.violations();
-    assertEquals(1, violations.size());
-    assertEquals("Amount must have up to 14 digits and 2 decimals", violations.iterator().next().getMessage());
-  }
-
-  @Test
   void testToModel() {
     CreatePurchaseCommand command =
         CreatePurchaseCommand.builder()
@@ -192,5 +52,92 @@ class CreatePurchaseCommandTest {
     assertEquals(command.description(), purchase.description());
     assertEquals(command.purchaseDate(), purchase.purchaseDate());
     assertEquals(command.amount(), purchase.amount());
+  }
+
+  @ParameterizedTest
+  @MethodSource("invalidCommandProvider")
+  void testInvalidCreatePurchaseCommand(
+      CreatePurchaseCommand command, String expectedMessage, int expectedViolations) {
+    validator.isValid(command);
+
+    var violations = validator.violations();
+    assertEquals(expectedViolations, violations.size());
+    assertEquals(expectedMessage, violations.iterator().next().getMessage());
+  }
+
+  private static Stream<Arguments> invalidCommandProvider() {
+    return Stream.of(
+        Arguments.of(
+            CreatePurchaseCommand.builder()
+                .description("")
+                .purchaseDate(LocalDate.now())
+                .amount(new BigDecimal("10.00"))
+                .build(),
+            "Description cannot be empty",
+            1),
+        Arguments.of(
+            CreatePurchaseCommand.builder()
+                .description(null)
+                .purchaseDate(LocalDate.now())
+                .amount(new BigDecimal("10.00"))
+                .build(),
+            "Description is required",
+            2),
+        Arguments.of(
+            CreatePurchaseCommand.builder()
+                .description("A".repeat(51))
+                .purchaseDate(LocalDate.now())
+                .amount(new BigDecimal("10.00"))
+                .build(),
+            "Description must be between 20 and 50 characters",
+            1),
+        Arguments.of(
+            CreatePurchaseCommand.builder()
+                .description("Valid Description")
+                .purchaseDate(LocalDate.now().plusDays(1))
+                .amount(new BigDecimal("10.00"))
+                .build(),
+            "Purchase date must be in the past or present",
+            1),
+        Arguments.of(
+            CreatePurchaseCommand.builder()
+                .description("Valid Description")
+                .purchaseDate(null)
+                .amount(new BigDecimal("10.00"))
+                .build(),
+            "Purchase date is required",
+            1),
+        Arguments.of(
+            CreatePurchaseCommand.builder()
+                .description("Valid Description")
+                .purchaseDate(LocalDate.now())
+                .amount(new BigDecimal("0.00"))
+                .build(),
+            "Amount must be greater than 0",
+            1),
+        Arguments.of(
+            CreatePurchaseCommand.builder()
+                .description("Valid Description")
+                .purchaseDate(LocalDate.now())
+                .amount(null)
+                .build(),
+            "Amount is required",
+            1),
+        Arguments.of(
+            CreatePurchaseCommand.builder()
+                .description("Valid Description")
+                .purchaseDate(LocalDate.now())
+                .amount(new BigDecimal("123456789012345.00"))
+                .build(),
+            "Amount must have up to 14 digits and 2 decimals",
+            1),
+        Arguments.of(
+            CreatePurchaseCommand.builder()
+                .description("Valid Description")
+                .purchaseDate(LocalDate.now())
+                .amount(new BigDecimal("10.001"))
+                .build(),
+            "Amount must have up to 14 digits and 2 decimals",
+            1));
   }
 }

@@ -1,4 +1,4 @@
-package com.hnvas.wexchagellenge.application.validation;
+package com.hnvas.wexchagellenge.application.exception;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

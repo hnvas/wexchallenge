@@ -16,7 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.hnvas.wexchagellenge.domain.exchange.ExchangeRate;
+import com.hnvas.wexchagellenge.domain.purchase.exchange.ExchangeRate;
 import com.hnvas.wexchagellenge.infrastructure.client.fiscaldata.FiscalDataClient;
 import com.hnvas.wexchagellenge.infrastructure.client.fiscaldata.model.ExchangeRatesResponse;
 import com.hnvas.wexchagellenge.infrastructure.persistence.exchange.ExchangeRateRecord;

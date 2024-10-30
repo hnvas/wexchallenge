@@ -1,4 +1,4 @@
-package com.hnvas.wexchagellenge.application.validation;
+package com.hnvas.wexchagellenge.application.exception;
 
 import lombok.Getter;
 
