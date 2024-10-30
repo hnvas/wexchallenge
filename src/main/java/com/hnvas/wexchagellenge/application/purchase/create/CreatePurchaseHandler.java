@@ -21,7 +21,7 @@ public class CreatePurchaseHandler {
     this.validationHandler = validationHandler;
   }
 
-  private static ValidationException invalidCreatePurchaseCommand(
+  private static ValidationException notifyInvalid(
       Set<ConstraintViolation<CreatePurchaseCommand>> violations) {
     return new ValidationException(
         INVALID_PURCHASE_MESSAGE,
@@ -30,7 +30,7 @@ public class CreatePurchaseHandler {
 
   public CreatePurchaseOutput handle(CreatePurchaseCommand command) {
     if (!validationHandler.isValid(command)) {
-      throw invalidCreatePurchaseCommand(validationHandler.violations());
+      throw notifyInvalid(validationHandler.violations());
     }
 
     return CreatePurchaseOutput.fromModel(purchaseGateway.save(command.toModel()));

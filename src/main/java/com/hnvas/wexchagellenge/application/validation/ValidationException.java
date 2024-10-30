@@ -1,7 +1,10 @@
 package com.hnvas.wexchagellenge.application.validation;
 
+import lombok.Getter;
+
 import java.util.List;
 
+@Getter
 public class ValidationException extends RuntimeException {
 
   private List<String> violations;
