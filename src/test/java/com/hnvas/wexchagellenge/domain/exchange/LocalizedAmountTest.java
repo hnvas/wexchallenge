@@ -1,13 +1,14 @@
 package com.hnvas.wexchagellenge.domain.exchange;
 
-import com.hnvas.wexchagellenge.domain.purchase.Purchase;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import org.junit.jupiter.api.Test;
+
+import com.hnvas.wexchagellenge.domain.purchase.Purchase;
 
 class LocalizedAmountTest {
 
@@ -30,6 +31,8 @@ class LocalizedAmountTest {
     // Assert
     assertNotNull(localizedAmount);
     assertEquals(exchangeRate, localizedAmount.exchangeRate());
-    assertEquals(EXCHANGE_RATE.multiply(AMOUNT).doubleValue(), localizedAmount.convertedAmount().doubleValue());
+    assertEquals(
+        EXCHANGE_RATE.multiply(AMOUNT).doubleValue(),
+        localizedAmount.convertedAmount().doubleValue());
   }
 }

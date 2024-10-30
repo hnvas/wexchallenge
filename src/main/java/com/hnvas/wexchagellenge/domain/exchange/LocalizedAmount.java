@@ -1,10 +1,11 @@
 package com.hnvas.wexchagellenge.domain.exchange;
 
-import com.hnvas.wexchagellenge.domain.purchase.Purchase;
-import lombok.EqualsAndHashCode;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+
+import com.hnvas.wexchagellenge.domain.purchase.Purchase;
+
+import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode
 public class LocalizedAmount {
@@ -24,9 +25,7 @@ public class LocalizedAmount {
   }
 
   private static BigDecimal computeConversion(ExchangeRate exchangeRate, BigDecimal amount) {
-    return amount
-        .multiply(exchangeRate.exchangeRate())
-        .setScale(PRECISION_SCALE, ROUNDING_MODE);
+    return amount.multiply(exchangeRate.exchangeRate()).setScale(PRECISION_SCALE, ROUNDING_MODE);
   }
 
   public ExchangeRate exchangeRate() {

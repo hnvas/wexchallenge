@@ -1,13 +1,14 @@
 package com.hnvas.wexchagellenge.infrastructure.persistence.purchase;
 
-import com.hnvas.wexchagellenge.domain.purchase.Purchase;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import org.junit.jupiter.api.Test;
+
+import com.hnvas.wexchagellenge.domain.purchase.Purchase;
 
 class PurchaseRecordTest {
 

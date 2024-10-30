@@ -1,14 +1,15 @@
 package com.hnvas.wexchagellenge.domain.exchange;
 
-import com.hnvas.wexchagellenge.domain.purchase.Purchase;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
+
+import com.hnvas.wexchagellenge.domain.purchase.Purchase;
 
 class ExchangeConverterTest {
 
@@ -32,8 +33,7 @@ class ExchangeConverterTest {
         ExchangeRate.of(MEXICO, PESO, new BigDecimal("16.558"), LocalDate.parse("2024-03-31")),
         ExchangeRate.of(MEXICO, PESO, new BigDecimal("18.566"), LocalDate.parse("2024-03-31")),
         ExchangeRate.of(MEXICO, PESO, new BigDecimal("18.296"), LocalDate.parse("2024-06-30")),
-        ExchangeRate.of(MEXICO, PESO, new BigDecimal("19.655"), LocalDate.parse("2024-09-30"))
-    );
+        ExchangeRate.of(MEXICO, PESO, new BigDecimal("19.655"), LocalDate.parse("2024-09-30")));
   }
 
   @Test
@@ -50,10 +50,16 @@ class ExchangeConverterTest {
     assertThat(localizedAmounts)
         .isNotNull()
         .usingRecursiveComparison()
-        .isEqualTo(List.of(
-            LocalizedAmount.of(ExchangeRate.of(ARGENTINA, PESO, new BigDecimal("989.5"), EXCHANGE_DATE), purchase),
-            LocalizedAmount.of(ExchangeRate.of(MEXICO, PESO, new BigDecimal("19.655"), EXCHANGE_DATE), purchase),
-            LocalizedAmount.of(ExchangeRate.of(BRAZIL, REAL, new BigDecimal("5.434"), EXCHANGE_DATE), purchase)
-        ));
+        .isEqualTo(
+            List.of(
+                LocalizedAmount.of(
+                    ExchangeRate.of(ARGENTINA, PESO, new BigDecimal("989.5"), EXCHANGE_DATE),
+                    purchase),
+                LocalizedAmount.of(
+                    ExchangeRate.of(MEXICO, PESO, new BigDecimal("19.655"), EXCHANGE_DATE),
+                    purchase),
+                LocalizedAmount.of(
+                    ExchangeRate.of(BRAZIL, REAL, new BigDecimal("5.434"), EXCHANGE_DATE),
+                    purchase)));
   }
 }

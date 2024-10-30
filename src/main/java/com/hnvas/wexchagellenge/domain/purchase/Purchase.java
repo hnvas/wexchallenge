@@ -1,9 +1,9 @@
 package com.hnvas.wexchagellenge.domain.purchase;
 
-import lombok.EqualsAndHashCode;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
+import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode
 public class Purchase {
@@ -24,7 +24,8 @@ public class Purchase {
     return new Purchase(null, description, purchaseDate, amount);
   }
 
-  public static Purchase of(Long id, String description, LocalDate purchaseDate, BigDecimal amount) {
+  public static Purchase of(
+      Long id, String description, LocalDate purchaseDate, BigDecimal amount) {
     return new Purchase(id, description, purchaseDate, amount);
   }
 

@@ -1,7 +1,12 @@
 package com.hnvas.wexchagellenge.infrastructure.persistence.purchase;
 
-import com.hnvas.wexchagellenge.configuration.TestcontainersConfiguration;
-import com.hnvas.wexchagellenge.domain.purchase.Purchase;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Optional;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -10,12 +15,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.hnvas.wexchagellenge.configuration.TestcontainersConfiguration;
+import com.hnvas.wexchagellenge.domain.purchase.Purchase;
 
 @Import({TestcontainersConfiguration.class})
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -23,18 +24,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ActiveProfiles("test")
 class PurchaseGatewayJpaAdapterTest {
 
-  @Autowired
-  private PurchaseGatewayJpaAdapter purchaseGatewayJpaAdapter;
+  @Autowired private PurchaseGatewayJpaAdapter purchaseGatewayJpaAdapter;
 
-  @Autowired
-  private PurchaseRepository purchaseRepository;
+  @Autowired private PurchaseRepository purchaseRepository;
 
   private Purchase purchase;
 
   @BeforeEach
   void setUp() {
     purchaseRepository.deleteAll();
-    purchase = Purchase.of(1L, "Test Description", LocalDate.of(2023, 1, 1), new BigDecimal("100.00"));
+    purchase =
+        Purchase.of(1L, "Test Description", LocalDate.of(2023, 1, 1), new BigDecimal("100.00"));
   }
 
   @Test

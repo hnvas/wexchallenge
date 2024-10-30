@@ -1,6 +1,10 @@
 package com.hnvas.wexchagellenge.infrastructure.persistence.purchase;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
 import com.hnvas.wexchagellenge.domain.purchase.Purchase;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,9 +15,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-
 @Getter
 @Entity
 @Table(name = "purchase")
@@ -22,7 +23,7 @@ import java.time.LocalDate;
 public class PurchaseRecord {
 
   @Id
-  @GeneratedValue(strategy= GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Column(name = "description", nullable = false, length = 50)
@@ -39,6 +40,7 @@ public class PurchaseRecord {
   }
 
   public static PurchaseRecord fromModel(Purchase purchase) {
-    return new PurchaseRecord(purchase.id(), purchase.description(), purchase.purchaseDate(), purchase.amount());
+    return new PurchaseRecord(
+        purchase.id(), purchase.description(), purchase.purchaseDate(), purchase.amount());
   }
 }

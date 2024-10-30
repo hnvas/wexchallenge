@@ -1,10 +1,11 @@
 package com.hnvas.wexchagellenge.infrastructure.persistence.purchase;
 
-import com.hnvas.wexchagellenge.domain.purchase.Purchase;
-import com.hnvas.wexchagellenge.domain.purchase.PurchaseGateway;
+import java.util.Optional;
+
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
+import com.hnvas.wexchagellenge.domain.purchase.Purchase;
+import com.hnvas.wexchagellenge.domain.purchase.PurchaseGateway;
 
 @Component
 public class PurchaseGatewayJpaAdapter implements PurchaseGateway {

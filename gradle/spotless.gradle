@@ -1,0 +1,8 @@
+spotless {
+    java {
+        googleJavaFormat()
+        importOrder('java', 'javax', 'org', 'com', 'io', 'net')
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+}
