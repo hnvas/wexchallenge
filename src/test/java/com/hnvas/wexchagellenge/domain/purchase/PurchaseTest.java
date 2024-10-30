@@ -15,13 +15,26 @@ class PurchaseTest {
   private static final BigDecimal AMOUNT = new BigDecimal("58.20");
 
   @Test
-  void testPurchaseCreation() {
+  void testMakePurchaseOfExisting() {
     // Act
     Purchase purchase = Purchase.of(ID, DESCRIPTION, PURCHASE_DATE, AMOUNT);
 
     // Assert
     assertNotNull(purchase);
     assertEquals(ID, purchase.id());
+    assertEquals(DESCRIPTION, purchase.description());
+    assertEquals(PURCHASE_DATE, purchase.purchaseDate());
+    assertEquals(AMOUNT, purchase.amount());
+  }
+
+  @Test
+  void testPurchaseCreation() {
+    // Act
+    Purchase purchase = Purchase.create(DESCRIPTION, PURCHASE_DATE, AMOUNT);
+
+    // Assert
+    assertNotNull(purchase);
+    assertNull(purchase.id());
     assertEquals(DESCRIPTION, purchase.description());
     assertEquals(PURCHASE_DATE, purchase.purchaseDate());
     assertEquals(AMOUNT, purchase.amount());

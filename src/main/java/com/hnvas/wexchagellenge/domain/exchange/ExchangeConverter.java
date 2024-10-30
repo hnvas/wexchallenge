@@ -7,9 +7,10 @@ import java.util.stream.Collectors;
 
 import com.hnvas.wexchagellenge.domain.purchase.Purchase;
 
+import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ExchangeConverter {
 
   public static List<LocalizedAmount> convert(List<ExchangeRate> exchangeRates, Purchase purchase) {

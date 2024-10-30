@@ -9,13 +9,14 @@ import com.hnvas.wexchagellenge.domain.exchange.ExchangeRate;
 import com.hnvas.wexchagellenge.domain.exchange.ExchangeRateGateway;
 import com.hnvas.wexchagellenge.infrastructure.client.fiscaldata.model.ExchangeRateRecord;
 
-import lombok.RequiredArgsConstructor;
-
 @Component
-@RequiredArgsConstructor
 public class ExchangeGatewayClientAdapter implements ExchangeRateGateway {
 
-  private FiscalDataClient fiscalDataClient;
+  private final FiscalDataClient fiscalDataClient;
+
+  public ExchangeGatewayClientAdapter(FiscalDataClient fiscalDataClient) {
+    this.fiscalDataClient = fiscalDataClient;
+  }
 
   @Override
   public List<ExchangeRate> findExchangeRatesByCountry(
