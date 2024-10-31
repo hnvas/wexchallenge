@@ -17,22 +17,16 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FiscalDataRestTemplateFactory {
 
-  private static final ObjectMapper JSON_OBJECT_MAPPER_INSTANCE =
-      JsonMapper.builder()
-          .serializationInclusion(JsonInclude.Include.NON_NULL)
-          .addModule(new JavaTimeModule())
-          .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
-          .build();
-
   private final RestTemplateBuilder builder;
   private final FiscalDataProperties properties;
+  private final ObjectMapper jsonObjectMapper;
 
   public RestTemplate fiscalDataRestTemplate() {
     return builder
         .rootUri(properties.getUrl())
         .setConnectTimeout(properties.getConnectTimeout())
         .setReadTimeout(properties.getReadTimeout())
-        .messageConverters(new MappingJackson2HttpMessageConverter(JSON_OBJECT_MAPPER_INSTANCE))
+        .messageConverters(new MappingJackson2HttpMessageConverter(jsonObjectMapper))
         .build();
   }
 }

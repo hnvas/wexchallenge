@@ -16,12 +16,16 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 
 import com.hnvas.wexchagellenge.configuration.TestcontainersConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 
 @Import({TestcontainersConfiguration.class})
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ActiveProfiles("test")
-class PurchaseGatewayRepositoryIntegrationTest {
+@Sql(
+    scripts = {"classpath:db/cleanup.sql"},
+    executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+class PurchaseGatewayRepositoryTest {
 
   private static final Long PURCHASE_ID = 1L;
   private static final String DESCRIPTION = "Test Description";

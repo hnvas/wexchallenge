@@ -2,6 +2,8 @@ package com.hnvas.wexchagellenge.infrastructure.api.controller.advice;
 
 import java.util.Map;
 
+import com.hnvas.wexchagellenge.application.exception.ResourceNotFoundException;
+import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -11,14 +13,18 @@ import com.hnvas.wexchagellenge.application.exception.ValidationException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class RestExceptionAdviceTest {
 
   private RestExceptionAdvice restExceptionAdvice;
+  private HttpServletRequest request;
 
   @BeforeEach
   void setUp() {
     restExceptionAdvice = new RestExceptionAdvice();
+    request = mock(HttpServletRequest.class);
   }
 
   @Test
@@ -26,13 +32,32 @@ class RestExceptionAdviceTest {
     // Arrange
     Map<String, String> violations = Map.of("field", "error message");
     ValidationException exception = new ValidationException("Validation failed", violations);
+    when(request.getMethod()).thenReturn("POST");
 
     // Act
     ResponseEntity<ValidationErrorResponse> response =
-        restExceptionAdvice.handleValidationException(exception);
+        restExceptionAdvice.handleValidationException(exception, request);
 
     // Assert
     assertEquals(HttpStatus.UNPROCESSABLE_ENTITY, response.getStatusCode());
+    assertNotNull(response.getBody());
+    assertEquals("Validation failed", response.getBody().message());
+    assertEquals(violations, response.getBody().violations());
+  }
+
+  @Test
+  void handleValidationException_ShouldReturnBadRequest() {
+    // Arrange
+    Map<String, String> violations = Map.of("field", "error message");
+    ValidationException exception = new ValidationException("Validation failed", violations);
+    when(request.getMethod()).thenReturn("GET");
+
+    // Act
+    ResponseEntity<ValidationErrorResponse> response =
+        restExceptionAdvice.handleValidationException(exception, request);
+
+    // Assert
+    assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     assertNotNull(response.getBody());
     assertEquals("Validation failed", response.getBody().message());
     assertEquals(violations, response.getBody().violations());
@@ -49,5 +74,17 @@ class RestExceptionAdviceTest {
     // Assert
     assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     assertEquals("Internal server error", response.getBody());
+  }
+
+  @Test
+  void handleResourceNotFoundException_ShouldReturnNotFound() {
+    // Arrange
+    ResourceNotFoundException exception = ResourceNotFoundException.of("Purchase");
+
+    // Act
+    ResponseEntity<String> response = restExceptionAdvice.handleResourceNotFoundException(exception);
+
+    // Assert
+    assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
   }
 }

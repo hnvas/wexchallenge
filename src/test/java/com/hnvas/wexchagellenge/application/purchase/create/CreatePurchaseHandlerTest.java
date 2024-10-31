@@ -4,22 +4,20 @@ import com.hnvas.wexchagellenge.application.exception.ValidationException;
 import com.hnvas.wexchagellenge.application.validation.ValidationHandler;
 import com.hnvas.wexchagellenge.domain.purchase.Purchase;
 import com.hnvas.wexchagellenge.domain.purchase.PurchaseGateway;
-import jakarta.validation.ConstraintViolation;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -27,7 +25,7 @@ class CreatePurchaseHandlerTest {
 
   @Mock private PurchaseGateway purchaseGateway;
 
-  @Mock private ValidationHandler<CreatePurchaseCommand> validationHandler;
+  @Spy private ValidationHandler<CreatePurchaseCommand> validationHandler;
 
   @InjectMocks private CreatePurchaseHandler createPurchaseHandler;
 
@@ -44,7 +42,6 @@ class CreatePurchaseHandlerTest {
     Purchase purchase =
         Purchase.of(1L, "Valid Description", LocalDate.now(), new BigDecimal("10.00"));
 
-    when(validationHandler.isValid(command)).thenReturn(true);
     when(purchaseGateway.save(any(Purchase.class))).thenReturn(purchase);
 
     // Act
@@ -65,12 +62,6 @@ class CreatePurchaseHandlerTest {
             .amount(new BigDecimal("0.00"))
             .build();
 
-    Set<ConstraintViolation<CreatePurchaseCommand>> violations =
-        Set.of(mock(ConstraintViolation.class), mock(ConstraintViolation.class));
-
-    when(validationHandler.isValid(command)).thenReturn(false);
-    when(validationHandler.violations()).thenReturn(violations);
-
     // Act & Assert
     ValidationException exception =
         assertThrows(
@@ -80,6 +71,6 @@ class CreatePurchaseHandlerTest {
             });
 
     assertEquals("Invalid purchase information", exception.getMessage());
-    assertEquals(violations.size(), exception.getViolations().size());
+    assertEquals(validationHandler.violations().size(), exception.getViolations().size());
   }
 }

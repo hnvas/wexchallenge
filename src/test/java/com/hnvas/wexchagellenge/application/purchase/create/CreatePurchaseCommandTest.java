@@ -1,11 +1,13 @@
 package com.hnvas.wexchagellenge.application.purchase.create;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.stream.Stream;
 
+import jakarta.validation.ConstraintViolation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -62,7 +64,7 @@ class CreatePurchaseCommandTest {
 
     var violations = validator.violations();
     assertEquals(expectedViolations, violations.size());
-    assertEquals(expectedMessage, violations.iterator().next().getMessage());
+    assertTrue(violations.stream().map(ConstraintViolation::getMessage).anyMatch(expectedMessage::equals));
   }
 
   private static Stream<Arguments> invalidCommandProvider() {

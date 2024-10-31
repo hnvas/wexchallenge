@@ -1,6 +1,7 @@
 package com.hnvas.wexchagellenge.infrastructure.api.controller.advice;
 
 import com.hnvas.wexchagellenge.application.exception.ResourceNotFoundException;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,8 +14,11 @@ public class RestExceptionAdvice extends ResponseEntityExceptionHandler {
 
   @ExceptionHandler(ValidationException.class)
   public ResponseEntity<ValidationErrorResponse> handleValidationException(
-      ValidationException exception) {
-    return ResponseEntity.unprocessableEntity().body(ValidationErrorResponse.from(exception));
+      ValidationException exception, HttpServletRequest request) {
+    return switch (request.getMethod()) {
+      case "POST", "PUT" -> ResponseEntity.unprocessableEntity().body(ValidationErrorResponse.from(exception));
+      default -> ResponseEntity.badRequest().body(ValidationErrorResponse.from(exception));
+    };
   }
 
   @ExceptionHandler(ResourceNotFoundException.class)

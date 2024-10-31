@@ -17,12 +17,16 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 
 import com.hnvas.wexchagellenge.configuration.TestcontainersConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 
 @Import({TestcontainersConfiguration.class})
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ActiveProfiles("test")
-class ExchangeRateRecordRepositoryIntegrationTest {
+@Sql(
+    scripts = {"classpath:db/cleanup.sql"},
+    executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+class ExchangeRateRecordRepositoryTest {
 
   private static final String COUNTRY = "Argentina";
   private static final String CURRENCY = "Peso";

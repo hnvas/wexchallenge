@@ -1,0 +1,2 @@
+TRUNCATE purchase RESTART IDENTITY;
+TRUNCATE exchange_rate;
