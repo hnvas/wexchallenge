@@ -7,7 +7,9 @@ import com.hnvas.wexchagellenge.application.validation.ValidationHandler;
 import com.hnvas.wexchagellenge.domain.purchase.PurchaseGateway;
 
 import jakarta.validation.ConstraintViolation;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CreatePurchaseHandler {
 
   private static final String INVALID_PURCHASE_MESSAGE = "Invalid purchase information";

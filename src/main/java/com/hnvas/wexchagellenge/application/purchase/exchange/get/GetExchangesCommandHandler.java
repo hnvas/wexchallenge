@@ -1,5 +1,13 @@
 package com.hnvas.wexchagellenge.application.purchase.exchange.get;
 
+import static com.hnvas.wexchagellenge.application.exception.NoExchangeRateToConvertException.noExchangeRateToConvert;
+
+import java.util.List;
+import java.util.Set;
+
+import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
 import com.hnvas.wexchagellenge.application.exception.ResourceNotFoundException;
 import com.hnvas.wexchagellenge.application.exception.ValidationException;
 import com.hnvas.wexchagellenge.application.validation.ValidationHandler;
@@ -8,14 +16,10 @@ import com.hnvas.wexchagellenge.domain.purchase.PurchaseGateway;
 import com.hnvas.wexchagellenge.domain.purchase.exchange.ExchangeConverter;
 import com.hnvas.wexchagellenge.domain.purchase.exchange.ExchangeRateGateway;
 import com.hnvas.wexchagellenge.domain.purchase.exchange.LocalizedAmount;
+
 import jakarta.validation.ConstraintViolation;
-import org.springframework.util.CollectionUtils;
 
-import java.util.List;
-import java.util.Set;
-
-import static com.hnvas.wexchagellenge.application.exception.NoExchangeRateToConvertException.noExchangeRateToConvert;
-
+@Service
 public class GetExchangesCommandHandler {
 
   private static final String INVALID_QUERY_MESSAGE = "Invalid query information";
