@@ -32,5 +32,5 @@ spring:
 fiscal-data:
   api:
     url: https://api.fiscaldata.treasury.gov/services/api/fiscal_service
-    connect-timeout: 100ms
-    read-timeout: 500ms
+    connect-timeout: PT1S
+    read-timeout: PT3S

@@ -50,18 +50,24 @@ public interface ExchangeApi {
                             name = "Validation Errors",
                             summary = "Example of validation errors",
                             value =
-                                "[ { \"field\": \"country\", \"message\": \"Country must not be empty\" }, { \"field\": \"currency\", \"message\": \"Currency must not be empty\" } ]"))),
-        @ApiResponse(responseCode = "404", description = "Purchase not found"),
-        @ApiResponse(responseCode = "500", description = "Internal server error")
+                                "{ \"message\": \"Invalid query parameters\", \"violations\": { \"countryOrCurrencyRequired\": \"Either country or currency must be provided\" } }"))),
+        @ApiResponse(
+            responseCode = "404",
+            description = "Purchase not found",
+            content = @Content(examples = @ExampleObject())),
+        @ApiResponse(
+            responseCode = "500",
+            description = "Internal server error",
+            content = @Content(examples = @ExampleObject("Internal server error")))
       })
   @GetMapping
   ResponseEntity<GetExchangesOutput> getExchanges(
       @Parameter(description = "ID of the purchase", required = true) @PathVariable(name = "id")
-          String id,
+          Long id,
       @Parameter(description = "Country name, required if currency is not provided")
-          @RequestParam(name = "country")
+          @RequestParam(name = "country", required = false)
           String countryCurrency,
       @Parameter(description = "Currency name, required if country is not provided")
-          @RequestParam(name = "currency")
+          @RequestParam(name = "currency", required = false)
           String currency);
 }

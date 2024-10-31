@@ -19,7 +19,7 @@ public class FiscalDataClient extends RetryableApiClient {
   private static final String FILTER_COUNTRY_VALUE =
       "country:eq:%s,record_date:gte:%s,record_date:lte:%s";
   private static final String FILTER_CURRENCY_VALUE =
-      "country:eq:%s,record_date:gte:%s,record_date:lte:%s";
+      "currency:eq:%s,record_date:gte:%s,record_date:lte:%s";
   private static final String FILTER_COUNTRY_CURRENCY_VALUE =
       "country_currency_desc:eq:%s-%s,record_date:gte:%s,record_date:lte:%s";
 

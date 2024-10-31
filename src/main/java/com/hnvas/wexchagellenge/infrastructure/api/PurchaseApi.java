@@ -48,8 +48,11 @@ public interface PurchaseApi {
                             name = "Validation Errors",
                             summary = "Example of validation errors",
                             value =
-                                "[ { \"field\": \"description\", \"message\": \"Description must not be empty\" }, { \"field\": \"purchaseDate\", \"message\": \"Purchase date must be in the past or present\" }, { \"field\": \"amount\", \"message\": \"Amount must have up to 14 digits and 2 decimals\" } ]"))),
-        @ApiResponse(responseCode = "500", description = "Internal server error")
+                                "{ \"message\": \"Invalid purchase information\", \"violations\": { \"purchaseDate\": \"Purchase date must be in the past or present\", \"description\": \"Description cannot be empty\" } }"))),
+          @ApiResponse(
+              responseCode = "500",
+              description = "Internal server error",
+              content = @Content(examples = @ExampleObject("Internal server error")))
       })
   @PostMapping
   ResponseEntity<CreatePurchaseOutput> createPurchase(
@@ -65,6 +68,6 @@ public interface PurchaseApi {
                               name = "Example Purchase",
                               summary = "Example of a purchase request",
                               value =
-                                  "{ \"description\": \"Laptop\", \"purchase_date\": \"2024-10-30\", \"amount\": 1200.00 }")))
+                                  "{ \"description\": \"Laptop\", \"purchaseDate\": \"2024-10-30\", \"amount\": 1200.00 }")))
           CreatePurchaseCommand input);
 }

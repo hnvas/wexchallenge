@@ -13,7 +13,7 @@ public record GetExchangesCommand(
     String currency) {
 
   @AssertTrue(message = "Either country or currency must be provided")
-  public boolean isCountryOrCurrencyProvided() {
+  public boolean isCountryOrCurrencyRequired() {
     return StringUtils.isNotEmpty(country) || StringUtils.isNotEmpty(currency);
   }
 

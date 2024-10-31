@@ -25,9 +25,7 @@ public class CreatePurchaseHandler {
 
   private static ValidationException notifyInvalid(
       Set<ConstraintViolation<CreatePurchaseCommand>> violations) {
-    return new ValidationException(
-        INVALID_PURCHASE_MESSAGE,
-        violations.stream().map(ConstraintViolation::getMessage).toList());
+    return ValidationException.from(INVALID_PURCHASE_MESSAGE, violations);
   }
 
   public CreatePurchaseOutput handle(CreatePurchaseCommand command) {

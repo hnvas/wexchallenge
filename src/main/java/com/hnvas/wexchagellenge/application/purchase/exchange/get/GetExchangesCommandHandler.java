@@ -22,7 +22,7 @@ import jakarta.validation.ConstraintViolation;
 @Service
 public class GetExchangesCommandHandler {
 
-  private static final String INVALID_QUERY_MESSAGE = "Invalid query information";
+  private static final String INVALID_QUERY_MESSAGE = "Invalid query parameters";
   public static final long MONTH_RANGE_PERIOD = 6L;
 
   private final PurchaseGateway purchaseGateway;
@@ -77,8 +77,7 @@ public class GetExchangesCommandHandler {
 
   private ValidationException notifyInvalid(
       Set<ConstraintViolation<GetExchangesCommand>> violations) {
-    return new ValidationException(
-        INVALID_QUERY_MESSAGE, violations.stream().map(ConstraintViolation::getMessage).toList());
+    return ValidationException.from(INVALID_QUERY_MESSAGE, violations);
   }
 
   private ResourceNotFoundException notifyNotFound(String entityClassName) {
