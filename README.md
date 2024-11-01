@@ -17,15 +17,21 @@
 ## Project Structure
 ```bash
 src
-├── wexchallenge
-    ├── Application # Use cases and application services
-    ├── Domain # Domain entities
-    └── Infrastructure # Infrastructure components
-      ├── Api # API documentation, controllers, and exception handlers
-      ├── Client # External API clients
-      ├── Config # Application configuration
-      ├── Gateway # Multisource data management
-      ├── Persistence # Database access layer
+├── main
+│    ├── Application # Use cases and application services
+│    ├── Domain # Domain entities
+│    └── Infrastructure # Infrastructure components
+│      ├── Api # API documentation, controllers, and exception handlers
+│      ├── Client # External API clients
+│      ├── Config # Application configuration
+│      ├── Gateway # Multisource data management
+│      ├── Persistence # Database access layer
+├── test # Test classes
+      ├── Application # Use cases and application services tests
+      ├── Configuration # Test container configuration and test types annotations
+      ├── Domain # Domain entities tests
+      ├── Infrastructure # Infrastructure components tests
+      
 ```
 
 ## API Endpoints
@@ -80,7 +86,7 @@ To run the tests, use the following command:
 2. **Build and Run with Docker Compose:**
    This will build the Java application Docker image and start the PostgreSQL database along with the application.
    ```sh 
-    ./gradlew assemble && docker-compose up -d
+    docker-compose up -d
    ```
 3. **Accessing the Application:**
    The application will be accessible at `http://localhost:8080`.
@@ -93,3 +99,10 @@ To run the tests, use the following command:
    ```sh 
     docker-compose down
    ```
+
+## Further improvements
+
+- [ ] **Logging**: Implement structured logging for better observability.
+- [ ] **Metrics**: Implement metrics to monitor the application's performance.
+- [ ] **Tracing**: Implement distributed tracing to group logs over the stack.
+- [ ] **Performance**: Create a scheduled task to synchronize exchange rates periodically.
