@@ -4,7 +4,7 @@ server:
 
 logging:
   pattern:
-    console: "%green([%d{yyyy-MM-dd HH:mm:ss.SSS}]) - %magenta([%t]) - %highlight([%level]) - %cyan([%class->%method:%line]) - %yellow([traceId=%X{traceId}, spanId=%X{spanId}]): %msg%n"
+    console: "%green([%d{yyyy-MM-dd HH:mm:ss.SSS}]) %magenta([%t]) %highlight([%level]) %cyan([%C{1}->%method:%line]): %msg%n"
 
 db:
   host: ${DATABASE_HOST}

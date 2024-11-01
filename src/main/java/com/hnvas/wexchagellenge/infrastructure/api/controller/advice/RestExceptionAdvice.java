@@ -1,14 +1,12 @@
 package com.hnvas.wexchagellenge.infrastructure.api.controller.advice;
 
+import com.hnvas.wexchagellenge.application.exception.ResourceNotFoundException;
+import com.hnvas.wexchagellenge.application.exception.ValidationException;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
-import com.hnvas.wexchagellenge.application.exception.ResourceNotFoundException;
-import com.hnvas.wexchagellenge.application.exception.ValidationException;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
 public class RestExceptionAdvice extends ResponseEntityExceptionHandler {

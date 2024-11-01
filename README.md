@@ -25,6 +25,7 @@ src
 │      ├── Client # External API clients
 │      ├── Config # Application configuration
 │      ├── Gateway # Multisource data management
+│      ├── Monitoring # Health check and metrics
 │      ├── Persistence # Database access layer
 ├── test # Test classes
       ├── Application # Use cases and application services tests
@@ -63,6 +64,10 @@ src
 
 ## Running Tests
 
+### Prerequisites
+
+- Ensure you have **Java 21** installed on your machine.
+
 ### Steps:
 
 To run the tests, use the following command:
@@ -72,37 +77,46 @@ To run the tests, use the following command:
 
 ## Running the Application
 
-### Prerequisites:
+### Prerequisites
 
-- Docker and Docker Compose installed on your machine.
+- Ensure you have **Docker** and **Docker Compose** installed on your machine.
 
-### Steps:
+### Steps
 
 1. **Clone the Repository:**
    ```sh
    git clone https://github.com/hnvas/wexchallenge.git
    cd wexchallenge
    ```
+
 2. **Build and Run with Docker Compose:**
-   This will build the Java application Docker image and start the PostgreSQL database along with the application.
-   ```sh 
-    docker-compose up -d
+   This command will build the Docker image for the Java application and start both the PostgreSQL database and the application.
+   ```sh
+   docker-compose up -d
    ```
-3. **Accessing the Application:**
-   The application will be accessible at `http://localhost:8080`.
 
-4. **Accessing API Documentation:
-   The Swagger UI for the API documentation can be accessed at http://localhost:8080/swagger-ui/index.html. This provides a visual interface for all the RESTful endpoints in your application.
+3. **Access the Application:**
+   Once the containers are up and running, you can access the application at:
+   ```sh
+   http://localhost:8080
+   ```
 
-5. **Stopping the Application:**
+4. **Access API Documentation:**
+   The Swagger UI for API documentation is available at:
+   ```sh
+   http://localhost:8080/swagger-ui/index.html
+   ```
+   This interface provides a visual overview of all the RESTful endpoints in your application.
+
+5. **Stop the Application:**
    To stop the application and remove the containers, use:
-   ```sh 
-    docker-compose down
+   ```sh
+   docker-compose down
    ```
 
 ## Further improvements
 
 - [ ] **Logging**: Implement structured logging for better observability.
 - [ ] **Metrics**: Implement metrics to monitor the application's performance.
-- [ ] **Tracing**: Implement distributed tracing to group logs over the stack.
+- [ ] **Distributed Tracing**: Implement distributed tracing to correlate and group logs across the entire stack.
 - [ ] **Performance**: Create a scheduled task to synchronize exchange rates periodically.
