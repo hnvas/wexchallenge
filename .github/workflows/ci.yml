@@ -9,6 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: stage
 
     steps:
     - name: Check out repository
@@ -36,6 +37,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     needs: build
+    environment: stage
 
     steps:
     - name: Check out repository
