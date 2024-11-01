@@ -5,8 +5,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import com.hnvas.wexchagellenge.configuration.annotation.UnitTest;
 import org.junit.jupiter.api.Test;
 
+@UnitTest
 class PurchaseTest {
 
   private static final Long ID = 1L;

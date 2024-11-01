@@ -55,20 +55,36 @@ configurations {
 	implementation.exclude module: 'spring-boot-starter-tomcat'
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
-	finalizedBy 'jacocoTestReport'
-}
-
 tasks.named('build') {
 	dependsOn 'spotlessCheck'
 }
 
-jacocoTestReport {
-	dependsOn test
-
-	reports {
-		xml.required = true
-		html.required = true
+tasks.register('integrationTests', Test) {
+	group = 'verification'
+	useJUnitPlatform {
+		includeTags 'integrationTest'
 	}
 }
+
+tasks.register('unitTests', Test) {
+	group = 'verification'
+	useJUnitPlatform {
+		includeTags 'unitTest'
+	}
+}
+
+tasks {
+	test {
+		useJUnitPlatform()
+	}
+
+	jacocoTestReport {
+		reports {
+			executionData.setFrom(fileTree(project.projectDir).include("build/jacoco/*.exec"))
+			xml.required = true
+			html.required = true
+		}
+	}
+}
+
+

@@ -1,22 +1,27 @@
 package com.hnvas.wexchagellenge.application.exception;
 
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Path;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Map;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
+import com.hnvas.wexchagellenge.configuration.annotation.UnitTest;
+
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Path;
+
+@UnitTest
 class ValidationExceptionTest {
 
   @Test
   void testValidationException() {
     String message = "Validation failed";
-    Map<String, String> violations = Map.of("field1", "error message 1", "field2", "error message 2");
+    Map<String, String> violations =
+        Map.of("field1", "error message 1", "field2", "error message 2");
 
     ValidationException exception = new ValidationException(message, violations);
 

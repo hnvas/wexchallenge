@@ -1,9 +1,15 @@
 package com.hnvas.wexchagellenge.application.purchase.create;
 
-import com.hnvas.wexchagellenge.application.exception.ValidationException;
-import com.hnvas.wexchagellenge.application.validation.ValidationHandler;
-import com.hnvas.wexchagellenge.domain.purchase.Purchase;
-import com.hnvas.wexchagellenge.domain.purchase.PurchaseGateway;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+import com.hnvas.wexchagellenge.configuration.annotation.UnitTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -11,15 +17,12 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
+import com.hnvas.wexchagellenge.application.exception.ValidationException;
+import com.hnvas.wexchagellenge.application.validation.ValidationHandler;
+import com.hnvas.wexchagellenge.domain.purchase.Purchase;
+import com.hnvas.wexchagellenge.domain.purchase.PurchaseGateway;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
+@UnitTest
 @ExtendWith(MockitoExtension.class)
 class CreatePurchaseHandlerTest {
 

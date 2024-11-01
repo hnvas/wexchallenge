@@ -1,11 +1,11 @@
 package com.hnvas.wexchagellenge.infrastructure.persistence.exchange;
 
+import java.time.LocalDate;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor

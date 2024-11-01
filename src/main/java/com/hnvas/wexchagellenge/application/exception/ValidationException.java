@@ -26,7 +26,8 @@ public class ValidationException extends RuntimeException {
                 ConstraintViolation::getMessage));
   }
 
-  public static <T> ValidationException from(String message, Set<ConstraintViolation<T>> violations) {
+  public static <T> ValidationException from(
+      String message, Set<ConstraintViolation<T>> violations) {
     return new ValidationException(message, collectViolations(violations));
   }
 }

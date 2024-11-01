@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
+import com.hnvas.wexchagellenge.configuration.annotation.UnitTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,6 +23,7 @@ import com.hnvas.wexchagellenge.infrastructure.client.fiscaldata.model.ExchangeR
 import com.hnvas.wexchagellenge.infrastructure.persistence.exchange.ExchangeRateRecord;
 import com.hnvas.wexchagellenge.infrastructure.persistence.exchange.ExchangeRateRecordRepository;
 
+@UnitTest
 @ExtendWith(MockitoExtension.class)
 class ExchangeGatewayImplTest {
 

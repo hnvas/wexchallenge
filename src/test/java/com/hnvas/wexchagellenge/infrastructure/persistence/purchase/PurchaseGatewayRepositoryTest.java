@@ -7,24 +7,12 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import com.hnvas.wexchagellenge.configuration.annotation.IntegrationTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
-import org.springframework.test.context.ActiveProfiles;
 
-import com.hnvas.wexchagellenge.configuration.TestcontainersConfiguration;
-import org.springframework.test.context.jdbc.Sql;
-
-@Import({TestcontainersConfiguration.class})
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@ActiveProfiles("test")
-@Sql(
-    scripts = {"classpath:db/cleanup.sql"},
-    executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+@IntegrationTest
 class PurchaseGatewayRepositoryTest {
 
   private static final Long PURCHASE_ID = 1L;

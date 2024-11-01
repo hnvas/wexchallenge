@@ -49,10 +49,10 @@ public interface PurchaseApi {
                             summary = "Example of validation errors",
                             value =
                                 "{ \"message\": \"Invalid purchase information\", \"violations\": { \"purchaseDate\": \"Purchase date must be in the past or present\", \"description\": \"Description cannot be empty\" } }"))),
-          @ApiResponse(
-              responseCode = "500",
-              description = "Internal server error",
-              content = @Content(examples = @ExampleObject("Internal server error")))
+        @ApiResponse(
+            responseCode = "500",
+            description = "Internal server error",
+            content = @Content(examples = @ExampleObject("Internal server error")))
       })
   @PostMapping
   ResponseEntity<CreatePurchaseOutput> createPurchase(

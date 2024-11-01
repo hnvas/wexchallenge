@@ -1,10 +1,22 @@
 package com.hnvas.wexchagellenge.infrastructure.client.fiscaldata;
 
-import static org.assertj.core.api.Assertions.as;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockserver.model.HttpRequest.request;
-import static org.mockserver.model.HttpResponse.response;
-import static org.mockserver.model.JsonBody.json;
+import com.hnvas.wexchagellenge.configuration.annotation.IntegrationTest;
+import com.hnvas.wexchagellenge.infrastructure.client.fiscaldata.model.ExchangeRatesResponse;
+import com.hnvas.wexchagellenge.infrastructure.persistence.exchange.ExchangeRateRecord;
+import lombok.SneakyThrows;
+import org.assertj.core.api.InstanceOfAssertFactories;
+import org.jetbrains.annotations.NotNull;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockserver.client.MockServerClient;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.testcontainers.containers.MockServerContainer;
 
 import java.math.BigDecimal;
 import java.net.URI;
@@ -12,34 +24,13 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.assertj.core.api.InstanceOfAssertFactories;
-import org.jetbrains.annotations.NotNull;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.mockserver.client.MockServerClient;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.context.annotation.Import;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
-import org.testcontainers.containers.MockServerContainer;
+import static org.assertj.core.api.Assertions.as;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockserver.model.HttpRequest.request;
+import static org.mockserver.model.HttpResponse.response;
+import static org.mockserver.model.JsonBody.json;
 
-import com.hnvas.wexchagellenge.configuration.TestcontainersConfiguration;
-import com.hnvas.wexchagellenge.infrastructure.persistence.exchange.ExchangeRateRecord;
-import com.hnvas.wexchagellenge.infrastructure.client.fiscaldata.model.ExchangeRatesResponse;
-
-import lombok.SneakyThrows;
-
-@Import({TestcontainersConfiguration.class})
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@ActiveProfiles("test")
+@IntegrationTest
 class FiscalDataClientIntegrationTest {
 
   private static final String EXCHANGE_RATES_BY_COUNTRY_ENDPOINT =

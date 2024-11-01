@@ -2,12 +2,13 @@ package com.hnvas.wexchagellenge.application.purchase.create;
 
 import java.util.Set;
 
+import org.springframework.stereotype.Service;
+
 import com.hnvas.wexchagellenge.application.exception.ValidationException;
 import com.hnvas.wexchagellenge.application.validation.ValidationHandler;
 import com.hnvas.wexchagellenge.domain.purchase.PurchaseGateway;
 
 import jakarta.validation.ConstraintViolation;
-import org.springframework.stereotype.Service;
 
 @Service
 public class CreatePurchaseHandler {

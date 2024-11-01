@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.stream.Stream;
 
-import jakarta.validation.ConstraintViolation;
+import com.hnvas.wexchagellenge.configuration.annotation.UnitTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,6 +17,9 @@ import org.junit.jupiter.params.provider.MethodSource;
 import com.hnvas.wexchagellenge.application.validation.ValidationHandler;
 import com.hnvas.wexchagellenge.domain.purchase.Purchase;
 
+import jakarta.validation.ConstraintViolation;
+
+@UnitTest
 class CreatePurchaseCommandTest {
 
   private ValidationHandler<Object> validator;
@@ -64,7 +67,8 @@ class CreatePurchaseCommandTest {
 
     var violations = validator.violations();
     assertEquals(expectedViolations, violations.size());
-    assertTrue(violations.stream().map(ConstraintViolation::getMessage).anyMatch(expectedMessage::equals));
+    assertTrue(
+        violations.stream().map(ConstraintViolation::getMessage).anyMatch(expectedMessage::equals));
   }
 
   private static Stream<Arguments> invalidCommandProvider() {

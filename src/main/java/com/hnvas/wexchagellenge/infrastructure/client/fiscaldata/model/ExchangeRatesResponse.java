@@ -3,6 +3,7 @@ package com.hnvas.wexchagellenge.infrastructure.client.fiscaldata.model;
 import java.util.List;
 
 import com.hnvas.wexchagellenge.infrastructure.persistence.exchange.ExchangeRateRecord;
+
 import lombok.Builder;
 
 @Builder

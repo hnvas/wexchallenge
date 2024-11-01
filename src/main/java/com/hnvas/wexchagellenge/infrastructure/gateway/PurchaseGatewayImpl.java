@@ -2,12 +2,12 @@ package com.hnvas.wexchagellenge.infrastructure.gateway;
 
 import java.util.Optional;
 
-import com.hnvas.wexchagellenge.infrastructure.persistence.purchase.PurchaseRecord;
-import com.hnvas.wexchagellenge.infrastructure.persistence.purchase.PurchaseRecordRepository;
 import org.springframework.stereotype.Component;
 
 import com.hnvas.wexchagellenge.domain.purchase.Purchase;
 import com.hnvas.wexchagellenge.domain.purchase.PurchaseGateway;
+import com.hnvas.wexchagellenge.infrastructure.persistence.purchase.PurchaseRecord;
+import com.hnvas.wexchagellenge.infrastructure.persistence.purchase.PurchaseRecordRepository;
 
 @Component
 public class PurchaseGatewayImpl implements PurchaseGateway {

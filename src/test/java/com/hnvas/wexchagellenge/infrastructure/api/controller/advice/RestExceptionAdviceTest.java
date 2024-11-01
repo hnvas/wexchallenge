@@ -1,21 +1,24 @@
 package com.hnvas.wexchagellenge.infrastructure.api.controller.advice;
 
-import java.util.Map;
-
-import com.hnvas.wexchagellenge.application.exception.ResourceNotFoundException;
-import jakarta.servlet.http.HttpServletRequest;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
-import com.hnvas.wexchagellenge.application.exception.ValidationException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.util.Map;
+
+import com.hnvas.wexchagellenge.configuration.annotation.UnitTest;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import com.hnvas.wexchagellenge.application.exception.ResourceNotFoundException;
+import com.hnvas.wexchagellenge.application.exception.ValidationException;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+@UnitTest
 class RestExceptionAdviceTest {
 
   private RestExceptionAdvice restExceptionAdvice;
@@ -82,7 +85,8 @@ class RestExceptionAdviceTest {
     ResourceNotFoundException exception = ResourceNotFoundException.of("Purchase");
 
     // Act
-    ResponseEntity<String> response = restExceptionAdvice.handleResourceNotFoundException(exception);
+    ResponseEntity<String> response =
+        restExceptionAdvice.handleResourceNotFoundException(exception);
 
     // Assert
     assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());

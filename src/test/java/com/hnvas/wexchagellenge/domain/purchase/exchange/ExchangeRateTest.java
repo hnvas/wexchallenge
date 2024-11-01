@@ -6,9 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import com.hnvas.wexchagellenge.domain.purchase.exchange.ExchangeRate;
+import com.hnvas.wexchagellenge.configuration.annotation.UnitTest;
 import org.junit.jupiter.api.Test;
 
+@UnitTest
 class ExchangeRateTest {
 
   private static final String ARGENTINA = "Argentina";

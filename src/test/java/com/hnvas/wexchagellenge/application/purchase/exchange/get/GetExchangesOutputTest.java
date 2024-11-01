@@ -1,15 +1,16 @@
 package com.hnvas.wexchagellenge.application.purchase.exchange.get;
 
-import com.hnvas.wexchagellenge.domain.purchase.Purchase;
-import com.hnvas.wexchagellenge.domain.purchase.exchange.ExchangeRate;
-import com.hnvas.wexchagellenge.domain.purchase.exchange.LocalizedAmount;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import com.hnvas.wexchagellenge.domain.purchase.Purchase;
+import com.hnvas.wexchagellenge.domain.purchase.exchange.ExchangeRate;
+import com.hnvas.wexchagellenge.domain.purchase.exchange.LocalizedAmount;
 
 class GetExchangesOutputTest {
 
@@ -26,8 +27,10 @@ class GetExchangesOutputTest {
 
   @Test
   void testGetExchangesOutputCreation() {
-    Purchase purchase = Purchase.of(PURCHASE_ID, PURCHASE_DESCRIPTION, PURCHASE_DATE, PURCHASE_AMOUNT);
-    ExchangeRate exchangeRate = ExchangeRate.of(COUNTRY_FR, CURRENCY_FR, EXCHANGE_RATE_USD, PURCHASE_DATE);
+    Purchase purchase =
+        Purchase.of(PURCHASE_ID, PURCHASE_DESCRIPTION, PURCHASE_DATE, PURCHASE_AMOUNT);
+    ExchangeRate exchangeRate =
+        ExchangeRate.of(COUNTRY_FR, CURRENCY_FR, EXCHANGE_RATE_USD, PURCHASE_DATE);
     LocalizedAmount localizedAmount = LocalizedAmount.of(exchangeRate, purchase);
 
     GetExchangesOutput output = GetExchangesOutput.of(purchase, List.of(localizedAmount));
@@ -48,13 +51,17 @@ class GetExchangesOutputTest {
 
   @Test
   void testGetExchangesOutputWithMultipleConversions() {
-    Purchase purchase = Purchase.of(PURCHASE_ID, PURCHASE_DESCRIPTION, PURCHASE_DATE, PURCHASE_AMOUNT);
-    ExchangeRate exchangeRate1 = ExchangeRate.of(COUNTRY_FR, CURRENCY_FR, EXCHANGE_RATE_USD, PURCHASE_DATE);
-    ExchangeRate exchangeRate2 = ExchangeRate.of(COUNTRY_UK, CURRENCY_UK, EXCHANGE_RATE_GBP, PURCHASE_DATE);
+    Purchase purchase =
+        Purchase.of(PURCHASE_ID, PURCHASE_DESCRIPTION, PURCHASE_DATE, PURCHASE_AMOUNT);
+    ExchangeRate exchangeRate1 =
+        ExchangeRate.of(COUNTRY_FR, CURRENCY_FR, EXCHANGE_RATE_USD, PURCHASE_DATE);
+    ExchangeRate exchangeRate2 =
+        ExchangeRate.of(COUNTRY_UK, CURRENCY_UK, EXCHANGE_RATE_GBP, PURCHASE_DATE);
     LocalizedAmount localizedAmount1 = LocalizedAmount.of(exchangeRate1, purchase);
     LocalizedAmount localizedAmount2 = LocalizedAmount.of(exchangeRate2, purchase);
 
-    GetExchangesOutput output = GetExchangesOutput.of(purchase, List.of(localizedAmount1, localizedAmount2));
+    GetExchangesOutput output =
+        GetExchangesOutput.of(purchase, List.of(localizedAmount1, localizedAmount2));
 
     assertEquals(2, output.conversions().size());
 

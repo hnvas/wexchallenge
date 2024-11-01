@@ -8,24 +8,12 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.hnvas.wexchagellenge.configuration.annotation.IntegrationTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
-import org.springframework.test.context.ActiveProfiles;
 
-import com.hnvas.wexchagellenge.configuration.TestcontainersConfiguration;
-import org.springframework.test.context.jdbc.Sql;
-
-@Import({TestcontainersConfiguration.class})
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@ActiveProfiles("test")
-@Sql(
-    scripts = {"classpath:db/cleanup.sql"},
-    executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+@IntegrationTest
 class ExchangeRateRecordRepositoryTest {
 
   private static final String COUNTRY = "Argentina";
@@ -39,14 +27,16 @@ class ExchangeRateRecordRepositoryTest {
   @BeforeEach
   void setUp() {
     repository.deleteAll();
-    var exchangeRateRecord = new ExchangeRateRecord(COUNTRY, CURRENCY, EXCHANGE_RATE, LocalDate.now());
+    var exchangeRateRecord =
+        new ExchangeRateRecord(COUNTRY, CURRENCY, EXCHANGE_RATE, LocalDate.now());
     repository.save(exchangeRateRecord);
   }
 
   @Test
   void findByCountryAndRecordDateIsBetween() {
     // Act
-    List<ExchangeRateRecord> results = repository.findByCountryAndRecordDateIsBetween(COUNTRY, FROM_DATE, TO_DATE);
+    List<ExchangeRateRecord> results =
+        repository.findByCountryAndRecordDateIsBetween(COUNTRY, FROM_DATE, TO_DATE);
 
     // Assert
     assertNotNull(results);
@@ -58,7 +48,8 @@ class ExchangeRateRecordRepositoryTest {
   @Test
   void findByCurrencyAndRecordDateIsBetween() {
     // Act
-    List<ExchangeRateRecord> results = repository.findByCurrencyAndRecordDateIsBetween(CURRENCY, FROM_DATE, TO_DATE);
+    List<ExchangeRateRecord> results =
+        repository.findByCurrencyAndRecordDateIsBetween(CURRENCY, FROM_DATE, TO_DATE);
 
     // Assert
     assertNotNull(results);
@@ -70,7 +61,9 @@ class ExchangeRateRecordRepositoryTest {
   @Test
   void findByCountryAndCurrencyAndRecordDateIsBetween() {
     // Act
-    List<ExchangeRateRecord> results = repository.findByCountryAndCurrencyAndRecordDateIsBetween(COUNTRY, CURRENCY, FROM_DATE, TO_DATE);
+    List<ExchangeRateRecord> results =
+        repository.findByCountryAndCurrencyAndRecordDateIsBetween(
+            COUNTRY, CURRENCY, FROM_DATE, TO_DATE);
 
     // Assert
     assertNotNull(results);

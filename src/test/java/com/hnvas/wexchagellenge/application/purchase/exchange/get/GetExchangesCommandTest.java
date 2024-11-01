@@ -1,15 +1,16 @@
 package com.hnvas.wexchagellenge.application.purchase.exchange.get;
 
-import com.hnvas.wexchagellenge.application.validation.ValidationHandler;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.hnvas.wexchagellenge.application.validation.ValidationHandler;
 
 class GetExchangesCommandTest {
 
@@ -22,11 +23,8 @@ class GetExchangesCommandTest {
 
   @Test
   void testValidGetExchangesCommand() {
-    GetExchangesCommand command = GetExchangesCommand.builder()
-        .country("England")
-        .currency("Pound")
-        .purchaseId(10L)
-        .build();
+    GetExchangesCommand command =
+        GetExchangesCommand.builder().country("England").currency("Pound").purchaseId(10L).build();
 
     validator.isValid(command);
 
@@ -35,7 +33,8 @@ class GetExchangesCommandTest {
 
   @ParameterizedTest
   @MethodSource("invalidCommandProvider")
-  void testInvalidGetExchangesCommand(GetExchangesCommand command, String expectedMessage, int expectedViolations) {
+  void testInvalidGetExchangesCommand(
+      GetExchangesCommand command, String expectedMessage, int expectedViolations) {
     validator.isValid(command);
 
     var violations = validator.violations();
@@ -46,34 +45,22 @@ class GetExchangesCommandTest {
   private static Stream<Arguments> invalidCommandProvider() {
     return Stream.of(
         Arguments.of(
-            GetExchangesCommand.builder()
-                .purchaseId(1L)
-                .build(),
-            "Either country or currency must be provided", 1),
+            GetExchangesCommand.builder().purchaseId(1L).build(),
+            "Either country or currency must be provided",
+            1),
         Arguments.of(
-            GetExchangesCommand.builder()
-                .country("Australia")
-                .build(),
-            "Purchase ID is required", 1),
+            GetExchangesCommand.builder().country("Australia").build(),
+            "Purchase ID is required",
+            1),
         Arguments.of(
-            GetExchangesCommand.builder()
-                .currency("Dollar")
-                .build(),
-            "Purchase ID is required", 1),
+            GetExchangesCommand.builder().currency("Dollar").build(), "Purchase ID is required", 1),
         Arguments.of(
-            GetExchangesCommand.builder()
-                .country("")
-                .currency("")
-                .purchaseId(1L)
-                .build(),
-            "Either country or currency must be provided", 1),
+            GetExchangesCommand.builder().country("").currency("").purchaseId(1L).build(),
+            "Either country or currency must be provided",
+            1),
         Arguments.of(
-            GetExchangesCommand.builder()
-                .country(null)
-                .currency(null)
-                .purchaseId(1L)
-                .build(),
-            "Either country or currency must be provided", 1)
-    );
+            GetExchangesCommand.builder().country(null).currency(null).purchaseId(1L).build(),
+            "Either country or currency must be provided",
+            1));
   }
 }

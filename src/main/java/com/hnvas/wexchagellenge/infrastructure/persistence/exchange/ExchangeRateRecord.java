@@ -1,7 +1,11 @@
 package com.hnvas.wexchagellenge.infrastructure.persistence.exchange;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.hnvas.wexchagellenge.domain.purchase.exchange.ExchangeRate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -11,9 +15,6 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.math.BigDecimal;
-import java.time.LocalDate;
 
 @Getter
 @Entity

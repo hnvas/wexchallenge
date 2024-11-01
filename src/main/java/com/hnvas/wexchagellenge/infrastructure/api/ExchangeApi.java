@@ -27,47 +27,47 @@ public interface ExchangeApi {
       tags = {"Exchanges"})
   @ApiResponses(
       value = {
-          @ApiResponse(
-              responseCode = "200",
-              description = "Exchanges retrieved successfully",
-              content =
-              @Content(
-                  schema = @Schema(implementation = GetExchangesOutput.class),
-                  examples =
-                  @ExampleObject(
-                      name = "Example Response",
-                      summary = "Example of a successful response",
-                      value =
-                          "{ \"id\": 67890, \"description\": \"Laptop\", \"purchaseDate\": \"2024-10-30\", \"amount\": 1200.00, \"conversions\": [ { \"country\": \"Australia\", \"currency\": \"Dollar\", \"recordDate\": \"2024-10-30\", \"exchangeRate\": 1.2, \"convertedAmount\": 1440.00 }, { \"country\": \"Canada\", \"currency\": \"Dollar\", \"recordDate\": \"2024-10-30\", \"exchangeRate\": 1.5, \"convertedAmount\": 1800.00 } ] }"))),
-          @ApiResponse(
-              responseCode = "400",
-              description = "Invalid input data",
-              content =
-              @Content(
-                  mediaType = "application/json",
-                  examples =
-                  @ExampleObject(
-                      name = "Validation Errors",
-                      summary = "Example of validation errors",
-                      value =
-                          "{ \"message\": \"Invalid query parameters\", \"violations\": { \"countryOrCurrencyRequired\": \"Either country or currency must be provided\" } }"))),
-          @ApiResponse(
-              responseCode = "404",
-              description = "Purchase not found",
-              content = @Content(examples = @ExampleObject())),
-          @ApiResponse(
-              responseCode = "500",
-              description = "Internal server error",
-              content = @Content(examples = @ExampleObject("Internal server error")))
+        @ApiResponse(
+            responseCode = "200",
+            description = "Exchanges retrieved successfully",
+            content =
+                @Content(
+                    schema = @Schema(implementation = GetExchangesOutput.class),
+                    examples =
+                        @ExampleObject(
+                            name = "Example Response",
+                            summary = "Example of a successful response",
+                            value =
+                                "{ \"id\": 67890, \"description\": \"Laptop\", \"purchaseDate\": \"2024-10-30\", \"amount\": 1200.00, \"conversions\": [ { \"country\": \"Australia\", \"currency\": \"Dollar\", \"recordDate\": \"2024-10-30\", \"exchangeRate\": 1.2, \"convertedAmount\": 1440.00 }, { \"country\": \"Canada\", \"currency\": \"Dollar\", \"recordDate\": \"2024-10-30\", \"exchangeRate\": 1.5, \"convertedAmount\": 1800.00 } ] }"))),
+        @ApiResponse(
+            responseCode = "400",
+            description = "Invalid input data",
+            content =
+                @Content(
+                    mediaType = "application/json",
+                    examples =
+                        @ExampleObject(
+                            name = "Validation Errors",
+                            summary = "Example of validation errors",
+                            value =
+                                "{ \"message\": \"Invalid query parameters\", \"violations\": { \"countryOrCurrencyRequired\": \"Either country or currency must be provided\" } }"))),
+        @ApiResponse(
+            responseCode = "404",
+            description = "Purchase not found",
+            content = @Content(examples = @ExampleObject())),
+        @ApiResponse(
+            responseCode = "500",
+            description = "Internal server error",
+            content = @Content(examples = @ExampleObject("Internal server error")))
       })
   @GetMapping
   ResponseEntity<GetExchangesOutput> getExchanges(
       @Parameter(description = "ID of the purchase", required = true) @PathVariable(name = "id")
-      Long id,
+          Long id,
       @Parameter(description = "Country name, required if currency is not provided")
-      @RequestParam(name = "country", required = false)
-      String countryCurrency,
+          @RequestParam(name = "country", required = false)
+          String countryCurrency,
       @Parameter(description = "Currency name, required if country is not provided")
-      @RequestParam(name = "currency", required = false)
-      String currency);
+          @RequestParam(name = "currency", required = false)
+          String currency);
 }

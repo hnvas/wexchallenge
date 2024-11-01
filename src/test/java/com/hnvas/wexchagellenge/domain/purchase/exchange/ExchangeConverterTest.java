@@ -7,13 +7,12 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-import com.hnvas.wexchagellenge.domain.purchase.exchange.ExchangeConverter;
-import com.hnvas.wexchagellenge.domain.purchase.exchange.ExchangeRate;
-import com.hnvas.wexchagellenge.domain.purchase.exchange.LocalizedAmount;
+import com.hnvas.wexchagellenge.configuration.annotation.UnitTest;
 import org.junit.jupiter.api.Test;
 
 import com.hnvas.wexchagellenge.domain.purchase.Purchase;
 
+@UnitTest
 class ExchangeConverterTest {
 
   private static final String ARGENTINA = "Argentina";
