@@ -7,7 +7,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.Map;
 
-import com.hnvas.wexchagellenge.configuration.annotation.UnitTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -15,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.hnvas.wexchagellenge.application.exception.ResourceNotFoundException;
 import com.hnvas.wexchagellenge.application.exception.ValidationException;
+import com.hnvas.wexchagellenge.configuration.annotation.UnitTest;
 
 import jakarta.servlet.http.HttpServletRequest;
 

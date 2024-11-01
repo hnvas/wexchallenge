@@ -9,13 +9,13 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Optional;
 
-import com.hnvas.wexchagellenge.configuration.annotation.UnitTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.hnvas.wexchagellenge.configuration.annotation.UnitTest;
 import com.hnvas.wexchagellenge.domain.purchase.Purchase;
 import com.hnvas.wexchagellenge.infrastructure.persistence.purchase.PurchaseRecord;
 import com.hnvas.wexchagellenge.infrastructure.persistence.purchase.PurchaseRecordRepository;

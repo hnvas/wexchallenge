@@ -7,9 +7,9 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-import com.hnvas.wexchagellenge.configuration.annotation.UnitTest;
 import org.junit.jupiter.api.Test;
 
+import com.hnvas.wexchagellenge.configuration.annotation.UnitTest;
 import com.hnvas.wexchagellenge.domain.purchase.Purchase;
 
 @UnitTest

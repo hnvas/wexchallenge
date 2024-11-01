@@ -7,7 +7,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.stream.Stream;
 
-import com.hnvas.wexchagellenge.configuration.annotation.UnitTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -15,6 +14,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import com.hnvas.wexchagellenge.application.validation.ValidationHandler;
+import com.hnvas.wexchagellenge.configuration.annotation.UnitTest;
 import com.hnvas.wexchagellenge.domain.purchase.Purchase;
 
 import jakarta.validation.ConstraintViolation;

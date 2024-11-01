@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.hnvas.wexchagellenge.configuration.annotation.IntegrationTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -18,6 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hnvas.wexchagellenge.application.purchase.exchange.get.GetExchangesOutput;
+import com.hnvas.wexchagellenge.configuration.annotation.IntegrationTest;
 
 @IntegrationTest
 @AutoConfigureMockMvc

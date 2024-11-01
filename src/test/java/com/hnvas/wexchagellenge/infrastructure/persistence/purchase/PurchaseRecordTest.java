@@ -6,9 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import com.hnvas.wexchagellenge.configuration.annotation.UnitTest;
 import org.junit.jupiter.api.Test;
 
+import com.hnvas.wexchagellenge.configuration.annotation.UnitTest;
 import com.hnvas.wexchagellenge.domain.purchase.Purchase;
 
 @UnitTest

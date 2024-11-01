@@ -1,9 +1,17 @@
 package com.hnvas.wexchagellenge.infrastructure.client.fiscaldata;
 
-import com.hnvas.wexchagellenge.configuration.annotation.IntegrationTest;
-import com.hnvas.wexchagellenge.infrastructure.client.fiscaldata.model.ExchangeRatesResponse;
-import com.hnvas.wexchagellenge.infrastructure.persistence.exchange.ExchangeRateRecord;
-import lombok.SneakyThrows;
+import static org.assertj.core.api.Assertions.as;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockserver.model.HttpRequest.request;
+import static org.mockserver.model.HttpResponse.response;
+import static org.mockserver.model.JsonBody.json;
+
+import java.math.BigDecimal;
+import java.net.URI;
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
+import java.util.List;
+
 import org.assertj.core.api.InstanceOfAssertFactories;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.AfterEach;
@@ -18,17 +26,11 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.testcontainers.containers.MockServerContainer;
 
-import java.math.BigDecimal;
-import java.net.URI;
-import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
-import java.util.List;
+import com.hnvas.wexchagellenge.configuration.annotation.IntegrationTest;
+import com.hnvas.wexchagellenge.infrastructure.client.fiscaldata.model.ExchangeRatesResponse;
+import com.hnvas.wexchagellenge.infrastructure.persistence.exchange.ExchangeRateRecord;
 
-import static org.assertj.core.api.Assertions.as;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockserver.model.HttpRequest.request;
-import static org.mockserver.model.HttpResponse.response;
-import static org.mockserver.model.JsonBody.json;
+import lombok.SneakyThrows;
 
 @IntegrationTest
 class FiscalDataClientIntegrationTest {

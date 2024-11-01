@@ -31,7 +31,7 @@ jobs:
           ${{ runner.os }}-gradle-
 
     - name: Build with Gradle
-      run: ./gradlew build --no-daemon
+      run: ./gradlew assemble --no-daemon
 
     - name: Run unit tests
       run: ./gradlew unitTests --no-daemon
